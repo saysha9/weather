@@ -14,7 +14,7 @@ app.get("/", function(req, res) {
 //invoked after hitting go in the html form
 app.post("/", function(req, res) {
     
-    // takes in the city from the html form, display in // console. Takes in as string, ex. for zip 02139
+    // takes in the city from the html form, display in // console. Takes in as string, ex. for kahului
         var city = String(req.body.cityInput);;
         console.log(req.body.cityInput);
     
@@ -47,7 +47,8 @@ app.post("/", function(req, res) {
             res.write("<h1> The weather is " + weatherDescription + "<h1>");
             res.write("<h2>The Temperature in " + city + " is " + temp + " Degrees Fahrenheit<h2>");
             //for humidity
-            res.write("<h2> The Humidity is " + humidity + "% and the wind is blowing at " + windWrite + " miles per hour.");
+            res.write("<h2>Humidity is " + humidity + "%");
+            res.write("<h2>Wind speed is " + windWrite + " miles per hour.");
             
             
             res.write("<img src=" + imageURL +">");
