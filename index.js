@@ -14,14 +14,14 @@ app.get("/", function(req, res) {
 //invoked after hitting go in the html form
 app.post("/", function(req, res) {
     
-    // takes in the zip from the html form, display in // console. Takes in as string, ex. for zip 02139
-        var zip = String(req.body.zipInput);;
-        console.log(req.body.zipInput);
+    // takes in the city from the html form, display in // console. Takes in as string, ex. for zip 02139
+        var city = String(req.body.cityInput);;
+        console.log(req.body.cityInput);
     
     //build up the URL for the JSON query, API Key is // secret and needs to be obtained by signup 
         const units = "imperial";
         const apiKey = "29287f9bdce281a4c0ea5ddf3e3feff3";
-        const url = "https://api.openweathermap.org/data/2.5/weather?zip=" + zip +  "&units=" + units + "&APPID=" + apiKey;
+        const url = "https://api.openweathermap.org/data/2.5/weather?city=" + city +  "&units=" + units + "&APPID=" + apiKey;
     
     // this gets the data from Open WeatherPI
     https.get(url, function(response){
@@ -33,12 +33,17 @@ app.post("/", function(req, res) {
             const temp = weatherData.main.temp;
             const city = weatherData.name;
             const weatherDescription = weatherData.weather[0].description;
+            // const for humidity
+            const humidity = weatherData.main.humidity
             const icon = weatherData.weather[0].icon;
             const imageURL = "http://openweathermap.org/img/wn/" + icon + "@2x.png";
             
             // displays the output of the results
             res.write("<h1> The weather is " + weatherDescription + "<h1>");
             res.write("<h2>The Temperature in " + city + " " + zip + " is " + temp + " Degrees Fahrenheit<h2>");
+            //for humidity
+            res.write("<h2> The Humidity is " + humidity);
+            
             res.write("<img src=" + imageURL +">");
             res.send();
         });
